@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather application</title>
+    <!--  linking url for search icon -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css">
+    <link rel="stylesheet" href="2358873_MayankBaryal.css">
+</head>
+<body>
+    <header>
+        <h1>Weather Application</h1>
+        <!-- division for search bar and button-->
+        <div class="top">
+            <input id="city_input">
+            <button id = "search" ><i class="fa-solid fa-magnifying-glass fa-xl"></i></button>
+        </div>
+    </header>
+    <main>
+        <!-- division for displaying date-->
+        <div id="date"></div>
+        <div class="right-bottom">
+            <button class = "history" >History</button>
+        </div>  
+        <div class="bottom">
+            <!-- division for displaying additional weather properties -->
+            <div class="left">
+                <div id = "humidity"></div>
+                <div id = "windspeed"></div>
+                <div id ="pressure"></div>
+            </div>
+            <!-- division for displaying the main weather condition and city -->
+            <div class="right">
+                <div id="weatherIcon"></div>
+                <div id="condition"></div>
+                <div id="temperature"></div>
+                <div id="city"></div>
+            </div> 
+        </div>
+    </main>
+    <!-- division for displaying copyright -->
+    <footer>
+        <p>&copy Made by Mayank Baryal with Openweatherapi</p>
+    </footer>
+<script src="2358873_MayankBaryal.js"></script>
+</body>
+</html>
