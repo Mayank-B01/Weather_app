@@ -39,6 +39,6 @@
 	        $connect->close();
 	    } 
 	else{
-		 http_response_code(405);
+		http_response_code(405);
 	    echo json_encode(['success' => false, 'error' => 'Only POST requests are allowed']);
 	}
