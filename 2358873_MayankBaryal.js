@@ -1,12 +1,14 @@
+/* This function checks for network connectivity, 
+local storage availability and call the display function*/
 async function Home(city){
-  const localData = JSON.parse(localStorage.getItem(city));
-  if (navigator.onLine){
-    if (localData == null){
-      let data = await searchWeather(city)
-      if (data == null){
-        alert("City not found")
+  const localData = JSON.parse(localStorage.getItem(city.toUpperCase()));   // getting local storage data
+  if (navigator.onLine){      // checking connectivity
+    if (localData == null){     // condition for no data in local storage
+      let data = await searchWeather(city)      // calling the function for API call
+      if (data == null){                  // condition for data not found
+        alert("Invalid City Name. Please Enter Valid city!")
       }
-      else{
+      else{             // condition for  when online
         // displaying all the necessary weather data for the default city
         displaySearchcity(data)
         fetch("2358873_MayankBaryal_insert.php", {
@@ -19,20 +21,17 @@ async function Home(city){
         let today = new Date();
         let date = `${today.getMonth() + 1}/${today.getDate()}/${today.getFullYear()}`;
         data["date"] = date;
-        localStorage.setItem(city, JSON.stringify(data));
+        localStorage.setItem(city.toUpperCase(), JSON.stringify(data));
       }
-    }else{
+    }else{        // condition for data in local storagge
       const today = new Date();
       const date = `${today.getMonth() + 1}/${today.getDate()}/${today.getFullYear()}`;
-      if (date == localData["date"]){
-        console.log("Data from Local Storage");
-          // getting current date
-        const currentDate = new Date();
-        const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric',hour: 'numeric', minute: 'numeric' };
-        const formattedDate = currentDate.toLocaleDateString(undefined, options);
+      if (date == localData["date"]){     // condition for current day data in local storage
+        console.log("Data Accessed from Local Storage");
         // displaying all the necessary weather data for the default city
         displaySearchcity(localData)
-      }else{
+      }
+      else{          // condition for API call if not current day data
         console.log("different");
           console.log("Data Accessed from API");
         const apikey = "f8abfc44e2af1867338ff56a07005e1a";
@@ -40,10 +39,6 @@ async function Home(city){
         const url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apikey}&units=metric`;
         let res = await fetch(url);
         const data = await res.json();
-        // getting current date
-        const currentDate = new Date();
-        const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric',hour: 'numeric', minute: 'numeric' };
-        const formattedDate = currentDate.toLocaleDateString(undefined, options);
         // displaying all the necessary weather data for the default city
         displaySearchcity(data)
         fetch("2358873_MayankBaryal_insert.php", {
@@ -56,16 +51,18 @@ async function Home(city){
         let today = new Date();
         let date = `${today.getMonth() + 1}/${today.getDate()}/${today.getFullYear()}`;
         data["date"] = date;
-        localStorage.setItem(city, JSON.stringify(data));   
+        localStorage.setItem(city.toUpperCase(), JSON.stringify(data));   
       }
     }
-  }else{
-    if (localData == null){
+  }else{            //condition for no internet connection
+    if (localData == null){           // no data when offline
       alert("No past city data! Please connect to the internet")
-    }else{
+    }else{                      // display the data from local storage when offline
+      console.log("Data fetched from Local Storage")
       displaySearchcity(localData)
     }
   }
+  // adding event listener for history
   document.querySelector(".history").addEventListener("click", () => {
     window.location.href = `2358873_MayankBaryal_history.html?city=${city}`;
   });
@@ -77,14 +74,13 @@ input is also valid or not */
 async function searchWeather(city){
   console.log("Data Accessed from API");
   const apikey = "f8abfc44e2af1867338ff56a07005e1a";
-  //fetch data for the default city
   const url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apikey}&units=metric`;
   let res = await fetch(url);
   const data = await res.json();
-  if (data.cod < 400){
+  if (data.cod < 400){          // checking for successful API fetch
     return data;
   } 
-  return null;
+  return null;        
 }
 
 
@@ -113,20 +109,22 @@ function displaySearchcity(data){
   }
   }
 
+// adding event listener for click option
 document.getElementById("search").addEventListener("click", () => {
   let city = document.getElementById("city_input").value;
-  if (city == ""){
-    alert("Enter city name")
+  if (city == ""){      // condition to check blank input
+    alert("Enter a city name")
   }else{
     Home(city)
   }
 });
+// adding event listeners for enter key press
 document.querySelector("input").addEventListener("keypress", function (event) {
   if (event.key === "Enter") {
     event.preventDefault();
     let city = document.getElementById("city_input").value;
-    if (city == ""){
-      alert("Enter city name")
+    if (city == ""){      // condition to check blank input
+      alert("Enter a city name")
     }else{
       Home(city)
     }
@@ -134,4 +132,3 @@ document.querySelector("input").addEventListener("keypress", function (event) {
 });
 // calling the function to display default city data
 Home("Wrexham")
-

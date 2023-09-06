@@ -21,7 +21,7 @@ function generateHTMLMarkup(data){
                 <p>Weather Condition: ${day.weather_condition}</p>
                 <p>Humidity: ${day.humidity}%</p>
                 <p>Pressure: ${day.pressure}hPa</p>
-                <p>Wind Speed: ${day.wind}m/s</p>              
+                <p>Wind Speed: ${day.wind}km/s</p>              
             `;
         })
     }
