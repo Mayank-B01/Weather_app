@@ -41,6 +41,7 @@ async function Home(city){
         const data = await res.json();
         // displaying all the necessary weather data for the default city
         displaySearchcity(data)
+        //inserting data to the database
         fetch("2358873_MayankBaryal_insert.php", {
           method: 'POST',
           headers: {
@@ -51,7 +52,7 @@ async function Home(city){
         let today = new Date();
         let date = `${today.getMonth() + 1}/${today.getDate()}/${today.getFullYear()}`;
         data["date"] = date;
-        localStorage.setItem(city.toUpperCase(), JSON.stringify(data));   
+        localStorage.setItem(city.toUpperCase(), JSON.stringify(data));   // setting the item to local storage  
       }
     }
   }else{            //condition for no internet connection
