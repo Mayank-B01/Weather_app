@@ -74,7 +74,7 @@ async function Home(city){
 input is also valid or not */
 async function searchWeather(city){
   console.log("Data Accessed from API");
-  const apikey = "f8abfc44e2af1867338ff56a07005e1a";
+  const apikey = "api_key";
   const url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apikey}&units=metric`;
   let res = await fetch(url);
   const data = await res.json();
